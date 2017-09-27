@@ -1,0 +1,51 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Filter;
+
+import DataBase.UserService;
+import Model.User;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ *
+ * @author Quchi
+ */
+@WebFilter(filterName = "Login", urlPatterns = {"/*"})
+public class Login implements Filter {
+    
+   @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        if(httpReq.getUserPrincipal() != null && httpReq.getSession().getAttribute("user") == null) {
+            saveUserInSession(httpReq);
+        }
+        chain.doFilter(request, response);
+    }
+ 
+    private void saveUserInSession(HttpServletRequest request) {
+        UserService userService = new UserService();
+        String username = request.getUserPrincipal().getName();
+        User userByUsername = userService.GetUserByUsername(username);
+        request.getSession(true).setAttribute("user", userByUsername);
+    }
+ 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+ 
+    @Override
+    public void destroy() {
+    }
+    
+}

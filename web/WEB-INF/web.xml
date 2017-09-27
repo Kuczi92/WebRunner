@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    <display-name>WebowaAplikacjaRunner</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+ 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Dla Admina</web-resource-name>
+            <url-pattern>/adminpanel.jsp</url-pattern>
+            <url-pattern>/UserRedirect</url-pattern>
+            <url-pattern>/addEvent.jsp</url-pattern>
+            <url-pattern>/joinEvent.jsp</url-pattern>
+            <url-pattern>/chooseRunnerstoJoinPic.jsp</url-pattern>
+            <url-pattern>/addPicturesToEvent.jsp</url-pattern>
+            <url-pattern>/ListUserPicturesOnCurrentEvent.jsp</url-pattern>
+            <url-pattern>/EditUser.jsp</url-pattern>
+            <url-pattern>/ChangePassword.jsp</url-pattern>
+            <url-pattern>/EditDeleteEventList.jsp</url-pattern>
+            <url-pattern>/EditDeleteUserList.jsp</url-pattern>
+            <url-pattern>/SelectedUserToEdit.jsp</url-pattern>
+            <url-pattern>/EditUserPermission.jsp</url-pattern>
+            <url-pattern>/SelectedUserToEdit.jsp</url-pattern>
+            <url-pattern>/EditUsersNumberInEvent.jsp</url-pattern>
+            <url-pattern>/AddUsersToEvent.jsp</url-pattern>
+            <url-pattern>/addArticle.jsp</url-pattern>
+            <url-pattern>/EditArticle.jsp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+ 
+        <auth-constraint>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+        </security-constraint>
+        
+        
+        
+     <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Dla Usera</web-resource-name>
+            <url-pattern>/userpanel.jsp</url-pattern>
+            <url-pattern>/UserRedirect</url-pattern>
+            <url-pattern>/joinEvent.jsp</url-pattern>
+            <url-pattern>/ListUserPicturesOnCurrentEvent.jsp</url-pattern>
+            <url-pattern>/EditUser.jsp</url-pattern>
+            <url-pattern>/ChangePassword.jsp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+ 
+        <auth-constraint>
+            <role-name>User</role-name>
+        </auth-constraint>
+    </security-constraint>
+     
+     
+     
+     
+     
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>User</role-name>
+    </security-role>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/errorlogin.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>*.jspf</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

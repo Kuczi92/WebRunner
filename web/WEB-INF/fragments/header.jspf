@@ -1,0 +1,78 @@
+
+
+
+
+<%@page import="com.sun.image.codec.jpeg.JPEGCodec"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+
+<%@page import="java.awt.image.BufferedImage"%>
+<%@page import="java.io.ByteArrayInputStream"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="Model.User"%>
+<%@page import="java.util.Enumeration"%>
+<nav class = "navbar navbar-inverse navbar-fixed-top" style="background-image: url('NavbarBackGround.jpg');" >
+      <div class="container">
+        <a href="index.jsp" class="navbar-brand">WebRunner</a>
+         
+        <div class="collapse navbar-collapse navCollapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.jsp">Główna</a></li>
+            
+            <%
+            if(request.getUserPrincipal() == null)
+            {
+                    %>
+                    <li><a href="register.jsp">Rejestracja</a></li>
+                    <li><a href="UserRedirect">Zaloguj się</a></li>
+                    <%
+            }
+            else{
+
+                    %>
+                    
+                    <li><a href="UserRedirect"><% out.println(request.getUserPrincipal().getName()); %></a></li>
+                    <li><a href="logout">Wyloguj się</a></li>
+                    <% User user = (User)session.getAttribute("user"); %>
+                        <%
+                        
+       
+                        if(user.getIcon().length<40){
+                                %>
+                    
+                                   <ul class="nav navbar-nav navbar-right"><img style="max-width:50px; margin-top: 2px;"
+                                          src="defaultAvatar.jpg"></ul>
+
+                                <%
+                        }
+                        else{
+                    
+                        byte[] imageInByteArray = user.getIcon();
+                  
+                        String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageInByteArray);
+                                %>
+                    
+                                  <ul class="nav navbar-nav navbar-right"><img style="max-width:50px; margin-top: 2px;"
+                                          src="data:image/jpg;base64, <%=b64%>"></ul>
+
+                                <%
+                        
+                        }
+                        
+                   
+            }
+            %>
+            
+            
+            
+          </ul>
+        </div>
+          
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navCollapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+         
+      </div>
+    </nav>
